@@ -21,11 +21,14 @@
  *   Should the randomart image be mirrored on its y-axis?
  *
  */
-function JRAG() {
+function JRAG(params) {
+  if (typeof window.jrags == "undefined") {
+    window.jrags = {};
+  }
   var parent_id = params.parent_element_id;
   var width = params.width;
   var height = params.height;
-  var id = params.id;
+  var hash = params.hash;
   
   if (typeof params.mirror_x != "undefined") {
     var mirror_x = params.mirror_x;
@@ -48,16 +51,21 @@ function JRAG() {
     var scale = 1;
   }
 
-  var seed = parseInt(id.substring(0, 10), 16);
+  var seed = parseInt(hash.substring(0, 10), 16);
   function random() {
     var x = Math.sin(seed++) * 10000;
     var tmp =  x - Math.floor(x);
     return Math.floor(tmp * (15 - 0) + 0);
   }
 
-  var parent = document.getElementById(parent_id);
   var canvas = document.createElement('canvas');
-  parent.appendChild(canvas);
+
+  canvas.id = 'jrag_' + new Date().getTime();
+
+  if (typeof params.parent_id != "undefined") {
+    var parent = document.getElementById(parent_id);
+    parent.appendChild(canvas);
+  }
 
   canvas.width = width * scale;
   canvas.height = height * scale;
@@ -116,6 +124,9 @@ function JRAG() {
     }
     ctx.putImageData(output, 0, Math.floor(height * scale / 2));    
   }
+
+  window.jrags[canvas.id] = canvas;
+  return canvas;
 
   /**
    * Changes the coordinates or the colour based on the input and the internal
