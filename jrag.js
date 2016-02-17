@@ -1,7 +1,9 @@
 /**
  * Javascript Random Art Generator.
  *
- * Generates consistent randomart images on given hexadecimal input string.
+ * Generates consistent randomart images on given hexadecimal input string. Note
+ * that only the first 10 characters from the string are used. The value is then
+ * used to seed the random number generator responsible for the random walk.
  *
  * @param id String Required
  *   The hexadecimal string whose randomart representation is needed
