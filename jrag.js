@@ -7,12 +7,12 @@
  *
  * @param id String Required
  *   The hexadecimal string whose randomart representation is needed
- * @param parent_element_id String Required
+ * @param parent_element_id String
  *   The DOM id of the element where the randomart canvas should be placed in
  * @param width Integer Required
  *   The pixel width for the randomart to be generated
  * @param height Integer Required
- *   The pixel height for the randomart to be generated 
+ *   The pixel height for the randomart to be generated
  * @param scale Integer Optional Default 1
  *   Multiplier for the width and height of the randomart image
  * @param mirror_x Boolean Optional Default true
@@ -29,14 +29,14 @@ function JRAG(params) {
   var width = params.width;
   var height = params.height;
   var hash = params.hash;
-  
+
   if (typeof params.mirror_x != "undefined") {
     var mirror_x = params.mirror_x;
   }
   else {
     var mirror_x = true;
   }
-  
+
   if (typeof params.mirror_y != "undefined") {
     var mirror_y = params.mirror_y;
   }
@@ -62,14 +62,14 @@ function JRAG(params) {
 
   canvas.id = 'jrag_' + new Date().getTime();
 
-  if (typeof params.parent_id != "undefined") {
+  if (typeof params.parent_element_id != "undefined") {
     var parent = document.getElementById(parent_id);
     parent.appendChild(canvas);
   }
 
   canvas.width = width * scale;
   canvas.height = height * scale;
-  
+
   var ctx = canvas.getContext('2d');
 
   var coord = {
@@ -82,7 +82,7 @@ function JRAG(params) {
   var iter = width * height * 6;
   for (var i = 0; i < iter; i++) {
     ctx.fillStyle = "rgb(" + coord.fillstyle + ")";
-    var r = random().toString(16);    
+    var r = random().toString(16);
     coord = alter(coord, r);
     ctx.fillRect(coord.x * scale, coord.y * scale, 1 * scale, 1 * scale);
   }
@@ -122,7 +122,7 @@ function JRAG(params) {
          }
        }
     }
-    ctx.putImageData(output, 0, Math.floor(height * scale / 2));    
+    ctx.putImageData(output, 0, Math.floor(height * scale / 2));
   }
 
   window.jrags[canvas.id] = canvas;
@@ -201,7 +201,7 @@ function JRAG(params) {
           g = b - s;
           break;
       }
-    
+
       if (r < 0) {r = 0;}
       if (g < 0) {g = 0;}
       if (b < 0) {b = 0;}
@@ -252,15 +252,15 @@ function JRAG(params) {
           y=y+s;
           break;
       }
-    
+
       if (x < 0) {x = width + x;}
       else if (x > width) {x = x - width;}
       if (y < 0) {y = height + y;}
       else if (y > height) {y = y - height;}
-    
+
       coord.x = x;
       coord.y = y;
     }
-    return coord;  
+    return coord;
   }
 }

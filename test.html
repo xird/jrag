@@ -9,6 +9,7 @@
     canvas {
       border: 1px solid #888;
     }
+
   </style>
 
   <script src="jrag.js"></script>
@@ -17,12 +18,14 @@
 
 </head>
 <body>
-  <div id="art"></div>
+  <div id="art1"></div>
+  <div id="art2"></div>
 
   <script>
+  // Generate directly into a parent element
   var params = {
     "hash": "6b02b1ad",
-    "parent_element_id": "art",
+    "parent_element_id": "art1",
     "width": 16,
     "height": 8,
     "scale": 10,
@@ -30,7 +33,20 @@
     "mirror_y": true,
   };
   var my_random_art = new JRAG(params);
-  
+
+  // Generate first, append later
+  var params = {
+    "hash": "6b02b1a",
+    "width": 8,
+    "height": 8,
+    "scale": 20,
+    "mirror_x": false,
+    "mirror_y": false,
+  };
+  var my_random_art_2 = new JRAG(params);
+  document.body.appendChild(my_random_art_2);
+
+
   </script>
 </body>
 </html>
